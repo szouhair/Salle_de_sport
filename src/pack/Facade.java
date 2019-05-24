@@ -1,6 +1,8 @@
 package pack;
 
 
+import java.sql.Connection;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 @Singleton
 @LocalBean
@@ -141,6 +144,33 @@ public class Facade {
         	Seance seancei = new Seance(choix);
         	em.persist(seancei);
         	return seancei.getNumSeance();
+        }
+        
+        public int enregistrerCoachSeance (String nomCoach_Parametre, int numSeance){
+        	try {
+        		System.out.println("Etape1");
+        		Query req = em.createQuery("SELECT c FROM Coach c WHERE c.Identifiant = :nomCoach_Parametre");
+        		System.out.println("Etape1prime");
+        		req.setParameter("nomCoach_Parametre", nomCoach_Parametre);
+        		System.out.println("Etape2");
+        		Coach coach1 = (Coach) req.getSingleResult();
+        		System.out.println("Etape3");
+        		int IdCoach = coach1.getNumCoach();
+        		System.out.println("Etape4");
+        		SeanceCoach SeaCoach = new SeanceCoach(IdCoach, numSeance);
+        		System.out.println("Etape5");
+        		em.persist(SeaCoach);
+        		return numSeance;
+        	}
+        	catch(IllegalArgumentException e) {
+        		System.out.println("Exception levée");
+        		return 100;
+        	}
+        	//Query requete = em.createQuery("SELECT numCoach FROM Coach c WHERE c.Identifiant = :nomCoach_Parametre");
+        	//int IdCoach = (Integer)requete.getSingleResult();
+
+        	
+        	
         }
 
         public String retournerChoix (int choixId) {

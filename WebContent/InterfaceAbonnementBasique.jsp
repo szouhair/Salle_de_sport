@@ -11,8 +11,9 @@
 Bienvenue 
 <%@ page import ="java.util.ArrayList"%>
 <%@ page import ="java.util.List"%>
+<%@ page import ="java.util.Collections"%>
 <%
-String n = (String)request.getAttribute("nom");
+String n = (String)request.getAttribute("usernameClient");
 
 %>
 "<%=n %>"
@@ -47,11 +48,26 @@ String n = (String)request.getAttribute("nom");
  
 <tr>
 <td rowspan="1"> 08h-10h </td>
-<% List<String> list = (ArrayList<String>)request.getAttribute("ListeDesChoix"); %>
+<% 
+
+
+List<String> list = (ArrayList<String>)request.getAttribute("ListeDesChoix");
+/**
+if ((ArrayList<String>)request.getAttribute("ListeDesChoix") == null) {
+	list = new ArrayList<String>(Collections.nCopies(40, "0"));
+}
+else {
+	list = 
+};**/ %>
  
- <td> <%=list.get(0)%> </td>
+ <td> <%
+ if (list.get(0).equals("1")) { %>
+	Foot <%}%>  </td>
 	 
- <td> <%=list.get(1)%></td>
+ <td> <%
+ if (list.get(1).equals("1")) { %>
+	Foot <%}%>  </td>
+	
  <td> <%
  if (list.get(2).equals("1")) { %>
 	Foot <%}%>  </td>

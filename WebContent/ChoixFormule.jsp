@@ -72,11 +72,15 @@
 </head>
 <body>
 <form action = "Serv" method = "Post">
-<p> Bienvenue client numéro
+<p> Bonjour
 <%
-int n = (Integer)request.getAttribute("numClient");
+if (session.getAttribute("username") == null){
+	response.sendRedirect("IdentificationClient.html");
+}
+String s = (String) session.getAttribute("username");
+//String s = (String)request.getAttribute("usernameClient");
 %>
-"<%=n %>". Veuillez choisir la formule qui vous intéresse.
+<%=s %>. Veuillez choisir la formule qui vous intéresse.
 <%@ page import ="java.util.ArrayList"%>
 <%@ page import ="java.util.List"%>
 <%
@@ -92,7 +96,7 @@ ListSea = (List<Integer>)request.getAttribute("ListeSeance"); %>
     <li>1 activité</li>
     <li>Pas d'accès au Sauna</li>
     <li>Pas de suivi personnalisé</li>
-    <input hidden type="text" name="n" value="<%=n%>">
+   <!-- <input hidden type="text" name="n" value="<%//=n%>"> -->
     <input type = "hidden" name = "op" value = "SignUpBasic"> 
     <li class="grey"><input type ="submit" value = "Sign Up"></li>
     
@@ -128,5 +132,11 @@ ListSea = (List<Integer>)request.getAttribute("ListeSeance"); %>
 </div>
 <input type = "hidden" name = "op" value = "SignUpGold">
 </form>
+<div>
+<form action = "Serv" method = "Post">
+<input type = "submit" value = "Se déconnecter">
+<input type = "hidden" name = "op" value = "LogoutClient">
+</form>
+</div>
 </body>
 </html>

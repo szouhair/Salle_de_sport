@@ -10,6 +10,8 @@
         
         <class>pack.Coach</class>
         <class>pack.Client</class>
+        <class>pack.Seance</class>
+        <class>pack.SeanceCoach</class>
         
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />

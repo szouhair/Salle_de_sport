@@ -2,6 +2,7 @@ package pack;
 
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class Serv
  */
@@ -51,7 +53,10 @@ public class Serv extends HttpServlet {
                 	String username = request.getParameter("username");
                 	String mdp = request.getParameter("mdp");
                 	if (facade.clientbienidentifie(username, mdp)) {
-                		request.getRequestDispatcher("AcceuilClient.html").forward(request, response);
+                		HttpSession session = request.getSession();
+                		session.setAttribute("username", username);
+                		//request.setAttribute("usernameClient", username);
+                		request.getRequestDispatcher("ChoixFormule.jsp").forward(request, response);
                 	}
                 	else {
                 		request.getRequestDispatcher("MdpIncorrect.html").forward(request, response);
@@ -67,15 +72,19 @@ public class Serv extends HttpServlet {
                 	try {
                 	String username1 = request.getParameter("username");
                 	String mdp1 = request.getParameter("mdp");
+                	//int IdC = Integer.parseInt(request.getParameter("IdCoach"));
                 	if (facade.coachbienidentifie(username1, mdp1)) {
-                		request.getRequestDispatcher("AcceuilCoach.html").forward(request, response);
+                		HttpSession session = request.getSession();
+                		session.setAttribute("nomcoach", username1);
+                		request.setAttribute("usernameC", username1);
+                		request.getRequestDispatcher("AcceuilCoach.jsp").forward(request, response);
                 	}
                 	else {
-                		request.getRequestDispatcher("MdpIncorrect.html").forward(request, response);
+                		request.getRequestDispatcher("MdpCoachIncorrect.html").forward(request, response);
                 	}
                 	}
                 	catch (java.lang.IllegalArgumentException e1) {
-                		request.getRequestDispatcher("MdpIncorrect.html").forward(request, response);
+                		request.getRequestDispatcher("MdpCoachIncorrect.html").forward(request, response);
                 	}
 
                 case "Inscription_Client":
@@ -134,47 +143,54 @@ public class Serv extends HttpServlet {
         			//request.setAttribute("nom", clienti.getIdentifiant());
                 	request.getRequestDispatcher("InterfaceAbonnementBasique.jsp").forward(request, response);
 
-
-
+                case "LogoutClient":
+                	HttpSession session = request.getSession();
+                	session.removeAttribute("username");
+                	response.sendRedirect("Accueil.html");
+                	
+                case "LogoutCoach":
+                	HttpSession session2 = request.getSession();
+                	session2.removeAttribute("nomcoach");
+                	response.sendRedirect("Accueil.html");
 
 
         		case "EnregistrerSonChoix":
 
-        			String choix1 = (request.getParameterValues("choix1"))[0];
-        			String choix2 = request.getParameterValues("choix2")[0];
-        			String choix3 = request.getParameterValues("choix3")[0];
-        			String choix4 = request.getParameterValues("choix4")[0];
-        			String choix5 = request.getParameterValues("choix5")[0];
-        			String choix6 = request.getParameterValues("choix6")[0];
-        			String choix7 = request.getParameterValues("choix7")[0];
-        			String choix8 = request.getParameterValues("choix8")[0];
-        			String choix9 = request.getParameterValues("choix9")[0];
-        			String choix10 = request.getParameterValues("choix10")[0];
-        			String choix11 = request.getParameterValues("choix11")[0];
-        			String choix12 = request.getParameterValues("choix12")[0];
-        			String choix13 = request.getParameterValues("choix13")[0];
-        			String choix14 = request.getParameterValues("choix14")[0];
-        			String choix15 = request.getParameterValues("choix15")[0];
-        			String choix16 = request.getParameterValues("choix16")[0];
-        			String choix17 = request.getParameterValues("choix17")[0];
-        			String choix18 = request.getParameterValues("choix18")[0];
-        			String choix19 = request.getParameterValues("choix19")[0];
-        			String choix20 = request.getParameterValues("choix20")[0];
-        			String choix21 = request.getParameterValues("choix21")[0];
-        			String choix22 = request.getParameterValues("choix22")[0];
-        			String choix23 = request.getParameterValues("choix23")[0];
-        			String choix24 = request.getParameterValues("choix24")[0];
-        			String choix25 = request.getParameterValues("choix25")[0];
-        			String choix26 = request.getParameterValues("choix26")[0];
-        			String choix27 = request.getParameterValues("choix27")[0];
-        			String choix28 = request.getParameterValues("choix28")[0];
-        			String choix29 = request.getParameterValues("choix29")[0];
-        			String choix30 = request.getParameterValues("choix30")[0];
-        			String choix31 = request.getParameterValues("choix31")[0];
-        			String choix32 = request.getParameterValues("choix32")[0];
-        			String choix33 = request.getParameterValues("choix33")[0];
-        			String choix34 = request.getParameterValues("choix34")[0];
-        			String choix35 = request.getParameterValues("choix35")[0];
+        			String choix1 = (request.getParameter("choix1"));
+        			String choix2 = request.getParameter("choix2");
+        			String choix3 = request.getParameter("choix3");
+        			String choix4 = request.getParameter("choix4");
+        			String choix5 = request.getParameter("choix5");
+        			String choix6 = request.getParameter("choix6");
+        			String choix7 = request.getParameter("choix7");
+        			String choix8 = request.getParameter("choix8");
+        			String choix9 = request.getParameter("choix9");
+        			String choix10 = request.getParameter("choix10");
+        			String choix11 = request.getParameter("choix11");
+        			String choix12 = request.getParameter("choix12");
+        			String choix13 = request.getParameter("choix13");
+        			String choix14 = request.getParameter("choix14");
+        			String choix15 = request.getParameter("choix15");
+        			String choix16 = request.getParameter("choix16");
+        			String choix17 = request.getParameter("choix17");
+        			String choix18 = request.getParameter("choix18");
+        			String choix19 = request.getParameter("choix19");
+        			String choix20 = request.getParameter("choix20");
+        			String choix21 = request.getParameter("choix21");
+        			String choix22 = request.getParameter("choix22");
+        			String choix23 = request.getParameter("choix23");
+        			String choix24 = request.getParameter("choix24");
+        			String choix25 = request.getParameter("choix25");
+        			String choix26 = request.getParameter("choix26");
+        			String choix27 = request.getParameter("choix27");
+        			String choix28 = request.getParameter("choix28");
+        			String choix29 = request.getParameter("choix29");
+        			String choix30 = request.getParameter("choix30");
+        			String choix31 = request.getParameter("choix31");
+        			String choix32 = request.getParameter("choix32");
+        			String choix33 = request.getParameter("choix33");
+        			String choix34 = request.getParameter("choix34");
+        			String choix35 = request.getParameter("choix35");
 
 
         			List<String> choix = Arrays.asList(choix1,choix2,choix3,choix4,choix5,choix6,choix7,choix8,choix9,choix10,choix11,choix12,choix13,choix14,choix15,
@@ -182,7 +198,12 @@ public class Serv extends HttpServlet {
         			        choix32,choix33,choix34,choix35);
 
         			List<Integer> ListSea = new ArrayList<>();
-
+        			HttpSession session3 = request.getSession();
+        			String nomCoach = (String)session3.getAttribute("nomcoach");
+        			//String nomCoach = request.getParameter("nameCoach");
+        			System.out.println(nomCoach);
+        			List<Integer> List_seance_Coach = new ArrayList<>();
+        			int n1 = 0;
         			for (String choisi : choix) {
         				if (choisi == null) {
         					choisi = "0";
@@ -190,6 +211,8 @@ public class Serv extends HttpServlet {
         				else {
         					if (choisi.equals("1")) {
         						choisi = "1";
+        						int nSeance = facade.enregistrerCoachSeance(nomCoach, n1);
+        						List_seance_Coach.add(nSeance);
         					}
         					else {
         						choisi = "0";
@@ -197,8 +220,12 @@ public class Serv extends HttpServlet {
         				}
         				int i = facade.enregistrerChoix(choisi);
         				ListSea.add(i);
+        				n1 = n1+1;
         			}
         			request.setAttribute("ListeSeance", ListSea);
+        			//request.setAttribute("nCoach", nomCoach);
+        			request.setAttribute("Lseance", List_seance_Coach);
+        			request.getRequestDispatcher("RecapCoach.jsp").forward(request, response);
 
         					//boolList.add(1);
         					//int NumCoach = Integer.parseInt(request.getParameter("numC"));

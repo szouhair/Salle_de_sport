@@ -2,10 +2,21 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Identification Client</title>
 </head>
 <body>
-<p> L'identifiant ou le mot de passe saisi est incorrect </p>
-<p> <a href = IdentificationCoach.html> <input type = submit value = "Réessayer"> </a> 
+<form action = "Serv" method = "Post">
+<p> Veuillez saisir votre identifiant et mot de passe </p>
+<p> Identifiant <input type="text" name="username"></p>
+<p> Mot de passe <input type="password" name="mdp"></p>
+<p>L'identifiant ou le mot de passe saisi est incorrect</p>
+<input hidden name = "op" value = "IdentificationCoach">
+<p> <input type="submit" value="S'identifier"></p>
+</form>
+
+<p> S'il s'agit de votre première connexion, veuillez d'abord vous inscrire. </p>
+<p><a href="InscriptionCoach.html"> <input type="submit" value="Inscription"></a></p>
+
+<p><a href ="Accueil.html">Retour à l'accueil</a></p>
 </body>
 </html>

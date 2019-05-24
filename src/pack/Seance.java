@@ -19,8 +19,8 @@ public class Seance {
 	public String value;
 	
 	
-	public Seance(String value) {
-		this.value = value;
+	public Seance(String choix) {
+		this.choix = choix;
 	}
 
 	public Seance() {}

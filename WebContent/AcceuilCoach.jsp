@@ -9,8 +9,18 @@
 <body>
 <body>
 
+<%@ page import ="javax.persistence.Query"%>
+
+<%
+if (session.getAttribute("nomcoach") == null){
+	response.sendRedirect("IdentificationCoach.html");
+}
+String Nom_Coach = (String) session.getAttribute("nomcoach");
+%>
 <p/>
-<p> Veuillez saisir vos disponibilités de la semaine.</p>
+<p>Bonjour <%=Nom_Coach %></p>
+<p> Veuillez saisir vos disponibilités de la semaine.
+</p>
 <form action = "Serv" method = "Post">
 <table border=1 cellspacing="1">
 
@@ -89,12 +99,18 @@
  <td> <INPUT type="checkbox" name="choix35" value="1"> Muscu </td>
 </tr>
 </table>
+<%// String Nom_Coach = (String)request.getAttribute("usernameC"); %>
 
-
-<input type = hidden name = "op" value = "ChoixCoach">
-<p> <input type="submit" value="EnregistrerSonChoix"></p>
+<input type = hidden name = "nameCoach" value = "<%=Nom_Coach%>" >
+<input type = hidden name = "op" value = "EnregistrerSonChoix">
+<p> <input type="submit" value="Enregistrer son choix"></p>
+</form>
+<div>
+<form action = "Serv" method = "Post">
+<input type = "submit" value = "Se déconnecter">
+<input type = "hidden" name = "op" value = "LogoutCoach">
 </form>
 </body>
-
+</div>
 </body>
 </html>
